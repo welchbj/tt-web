@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if expr %}
+<p>
+  Expression: <span class="purple-em">{{ expr }}</span>
+</p>
+{% endif %}
+
+{% if is_error %}
+  <p class="left-aligned">
+    {% for line in error_content %}
+      <span class="red-em">
+        {{ line|safe }}
+      </span>
+      <br>
+    {% endfor %}
+  </p>
+{% endif %}
+
+{% if is_table %}
+  <table>
+    <tr>
+      {% for symbol in symbols %}
+        <th class="purple-em">
+          {{ symbol }}
+        </th>
+      {% endfor %}
+      <th>
+        <!-- empty -->
+      </th>
+    </tr>
+    {% for row in rows %}
+      <tr class="{{ loop.cycle('odd', 'even') }}">
+      {% for value in row %}
+        <td>
+          {{ value }}
+        </td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}
+
+{% if is_symbols %}
+  {% if symbols %}
+    <p>
+      Symbols:
+      {% for symbol in symbols %}
+        <span class="purple-em">{{ symbol }}</span>
+        {% if not loop.last %},{% endif %}
+      {% endfor %}
+    </p>
+  {% else %}
+    Didn't parse any symbols.
+  {% endif %}
+{% endif %}
+
+{% if is_tokens %}
+  {% if tokens %}
+    <p>
+      Tokens:
+      {% for token in tokens %}
+        <span class="purple-em">{{ token }}</span>
+        {% if not loop.last %},{% endif %}
+      {% endfor %}
+    </p>
+  {% else %}
+    Didn't parse any tokens.
+  {% endif %}
+{% endif %}
+
+<a href="/">
+  <button>
+    Back
+  </button>
+</a>
+{% endblock %}

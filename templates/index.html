@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form class="expr-form flex-column" action="evaluate" method="get">
+  <input type="text" placeholder="Expression (e.g., A or B)" name="expr">
+
+  <select name="op">
+    <option value="table">Truth Table</option>
+    <option value="symbols">Symbols</option>
+    <option value="tokens">Tokens</option>
+  </select>
+
+  <button type="submit">
+    Evaluate
+  </button>
+</form>
+
+{% endblock %}
