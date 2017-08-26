@@ -3,8 +3,8 @@ Flask==0.12.2
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
-ttable==0.6.2
 Werkzeug==0.12.2
+-e git://github.com/welchbj/tt.git#egg=ttable
 
 # production
 gunicorn
