@@ -2,78 +2,84 @@
 
 {% block content %}
 
-{% if expr %}
-<p>
-  Expression: <span class="purple-em">{{ expr }}</span>
-</p>
-{% endif %}
+<div class="flex flex-centered flex-column">
+  {% if expr %}
+    <p class="expr-title">
+      {{ expr }}
+    </p>
+  {% endif %}
 
-{% if is_error %}
-  <p class="left-aligned">
-    {% for line in error_content %}
-      <span class="red-em">
-        {{ line|safe }}
-      </span>
-      <br>
-    {% endfor %}
+  {% if is_error %}
+    <p>
+      {% for line in error_content %}
+        {{ line }}
+        <br>
+      {% endfor %}
+      {% if underlined_error_expr %}
+        <br>
+        The suspected error position is underlined in the below expression:
+        <br>
+        {{ underlined_error_expr|safe }}
+      {% endif %}
+    </p>
+
+  {% else %}
+
+    {% if is_table %}
+      <p>Here's your beautiful table:</p>
+      <table>
+        <tr class="odd">
+          {% for symbol in table.ordering %}
+            <th><b>{{ symbol }}</b></th>
+          {% endfor %}
+          <th><!-- empty --></th>
+        </tr>
+        {% for bool_vals, result in table %}
+          <tr class="{{ loop.cycle('even', 'odd') }}">
+            {% for val in bool_vals %}
+              <td>{{ val|int }}</td>
+            {% endfor %}
+            <td>{{ result|int }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    {% if is_sat %}
+      {% if sat_iter %}
+        <p>
+          These values will satisfy your expression:
+        </p>
+        <table>
+          <tr class="odd">
+            {% for symbol in symbols %}
+              <th><b>{{ symbol }}</b></th>
+            {% endfor %}
+          </tr>
+          {% for bool_vals in sat_iter %}
+            <tr class="{{ loop.cycle('even', 'odd') }}">
+              {% for val in bool_vals %}
+                <td>{{ val|int }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p>
+          Your expression, not unlike the titular character in the hit Broadway musical <a href="https://en.wikipedia.org/wiki/Hamilton_(musical)" target="_blank">Hamilton</a>, cannot be <a href="https://www.youtube.com/watch?v=f0EqxnWxlvY" target="_blank">satisfied</a>.
+        </p>
+      {% endif %}
+    {% endif %}
+
+  {% endif %}
+
+  <p>
+    <a href="/">
+      <button class="fancy-button">
+        Back
+      </button>
+    </a>
   </p>
-{% endif %}
+</div>
 
-{% if is_table %}
-  <table>
-    <tr>
-      {% for symbol in symbols %}
-        <th class="purple-em">
-          {{ symbol }}
-        </th>
-      {% endfor %}
-      <th>
-        <!-- empty -->
-      </th>
-    </tr>
-    {% for row in rows %}
-      <tr class="{{ loop.cycle('odd', 'even') }}">
-      {% for value in row %}
-        <td>
-          {{ value }}
-        </td>
-      {% endfor %}
-      </tr>
-    {% endfor %}
-  </table>
-{% endif %}
-
-{% if is_symbols %}
-  {% if symbols %}
-    <p>
-      Symbols:
-      {% for symbol in symbols %}
-        <span class="purple-em">{{ symbol }}</span>
-        {% if not loop.last %},{% endif %}
-      {% endfor %}
-    </p>
-  {% else %}
-    Didn't parse any symbols.
-  {% endif %}
-{% endif %}
-
-{% if is_tokens %}
-  {% if tokens %}
-    <p>
-      Tokens:
-      {% for token in tokens %}
-        <span class="purple-em">{{ token }}</span>
-        {% if not loop.last %},{% endif %}
-      {% endfor %}
-    </p>
-  {% else %}
-    Didn't parse any tokens.
-  {% endif %}
-{% endif %}
-
-<a href="/">
-  <button>
-    Back
-  </button>
-</a>
 {% endblock %}

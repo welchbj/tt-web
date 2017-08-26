@@ -2,18 +2,22 @@
 
 {% block content %}
 
-<form class="expr-form flex-column" action="evaluate" method="get">
-  <input type="text" placeholder="Expression (e.g., A or B)" name="expr">
-
-  <select name="op">
-    <option value="table">Truth Table</option>
-    <option value="symbols">Symbols</option>
-    <option value="tokens">Tokens</option>
-  </select>
-
-  <button type="submit">
-    Evaluate
-  </button>
+<form class="centered-text" action="/evaluate" method="get">
+  <label class="fancy-label">
+    <input type="text" name="expr" required>
+    <div class="label-text">your expression</div>
+  </label>
+  <div class="fancy-buttons flex flex-column flex-centered">
+    <button class="fancy-button" type="submit" name="action" value="table">
+      Tablify
+    </button>
+    <button class="fancy-button" name="action" value="satone">
+      Satisfy (once)
+    </button>
+    <button class="fancy-button" name="action" value="satall">
+      Satisfy (all)
+    </button>
+  </div>
 </form>
 
 {% endblock %}
