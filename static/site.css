@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-  font-family: 'PT Sans Caption', sans-serif;
+  font-family: 'Merriweather', serif;
   background-image: url('/static/background.svg');
   width: 100%;
   height: 100%;
@@ -87,6 +87,7 @@ label.fancy-label input {
   background-color: transparent;
   border: 0;
   color: #9444f6;
+  font-family: 'Merriweather', serif;
   border-bottom: 2px solid #9444f6;
   font-size: 36px;
   outline: 0;
@@ -237,12 +238,13 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #9444f6;
+  border: 2px solid #9444f6;
 }
 
 th, td {
   padding: 5px;
-  text-align: left;
+  min-width: 25px;
+  text-align: center;
 }
 
 tr.odd {
