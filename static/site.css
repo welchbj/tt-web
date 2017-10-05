@@ -31,7 +31,8 @@ p {
 }
 
 ::selection {
-  background: #f4c4ff;
+  color: #fff;
+  background: #9444f6;
 }
 
 
@@ -162,7 +163,7 @@ button.fancy-button:active {
  * flexbox utilities
  */
 
- .flex {
+.flex {
    display: flex;
  }
 
